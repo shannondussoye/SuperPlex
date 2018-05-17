@@ -4,8 +4,6 @@ from config import config
 headers={"API-Key": vultr_api_key}
 
 import requests
-import pandas as pd
-from pandas.io.json import json_normalize
 import pyrebase
 
 BaseUrl="https://api.vultr.com/v1/"
@@ -43,4 +41,4 @@ ServerList=vultrCall("server/list")
 if len(ServerList)==0:
     print("No Instance Running. Creating Instance...")
     # Create Instance with Snapshot
-    #createInstance()
+    createInstance()

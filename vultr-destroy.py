@@ -3,12 +3,10 @@ import requests
 
 headers = {"API-Key": vultr_api_key}
 BaseUrl = "https://api.vultr.com/v1/"
-data = ""
-
 
 def vultrcall(string):
     url = BaseUrl + string
-    return (requests.get(url, headers=headers, data=data)).json()
+    return (requests.get(url, headers=headers)).json()
 
 
 # def checkSnapshot():
@@ -21,15 +19,28 @@ def serverdetails():
     return vultrcall("server/list")
 
 # list Server
-ServerId = list(serverdetails().keys())[0]
+serverDetails=serverdetails()
+ServerId = list(serverDetails.keys())[0]
 data = {'SUBID': ServerId}
 
 
 def vultrpost(path, pdata):
     url = BaseUrl + path
-    p = requests.post(url, headers=headers, data=pdata)
-    return ("Response: {}".format(p.text))
+    return requests.post(url, headers=headers, data=pdata)
 
 snapshot = vultrpost("snapshot/create", data)
-print(snapshot)
+
+if snapshot.status_code==200:
+    print(snapshot.text)
+    #print("Snapshot being created")
+else:
+    exit(1)
+
+
+
+
+#print(snapshot.text)
+#exit(1)
+
+
 #destroy=vultrpost("server/destroy",data)
