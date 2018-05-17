@@ -44,4 +44,3 @@ if len(ServerList)==0:
     print("No Instance Running. Creating Instance...")
     # Create Instance with Snapshot
     createInstance()
-
